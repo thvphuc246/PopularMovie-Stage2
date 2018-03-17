@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="key_themoviedb">663b2941e9827e2d9c06ea5a9535f04d</string>
+
+    <!-- Titles -->
+    <!-- Title naming the activity Movie Details -->
+    <string name="title_activity_movie_details">Movie Details</string>
+
+    <!-- UI text -->
+    <!-- Headline for release date -->
+    <string name="heading_release_date">Release Date</string>
+    <!-- Headline for user vote average -->
+    <string name="heading_vote_average">Vote Average</string>
+    <!-- Runtime text -->
+    <string name="no_release_date_found">No release date found</string>
+    <string name="no_summary_found">No summary was found</string>
+
+    <string name="description_movie_poster">Contains poster of movie</string>
+
+    <!-- Some strings used for example layout during design -->
+    <string name="example_original_title">5 Centimeters Per Second</string>
+    <string name="example_release_date">03–03–2007</string>
+    <string name="example_vote_average">8.2/10</string>
+    <string name="example_overview">Takaki and Akari are two classmates in elementary school. During their time together they have become close friends. Their relationship is tested when Akari moves to another city because of her parents\' jobs. Both of them struggle to keep their friendship alive, as time and distance slowly pulls them apart.</string>
+
+    <!--Lifetime and bundle-->
+    <string name="parcel_movie">PARCEL_MOVIE</string>
+
+    <!--Preference items-->
+    <string name="pref_sort_vote_avg_desc_key">SORT_VOTE_AVERAGE_DESC</string>
+    <string name="pref_sort_pop_desc_key">SORT_POPULARITY_DESC</string>
+
+    <!--Error user information-->
+    <string name="error_need_internet">This application needs Internet connection to function.</string>
+</resources>
