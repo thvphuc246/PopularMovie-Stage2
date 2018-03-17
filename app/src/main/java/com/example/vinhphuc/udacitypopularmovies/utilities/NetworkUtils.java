@@ -20,7 +20,7 @@ public final class NetworkUtils {
 
     public static String MOVIEDB_BASE_URL = "http://api.themoviedb.org/3/discover/movie";
 
-    //TODO (1) input your API key here
+    //TODO (1) insert your API key here
     public static String MOVIEDB_API_KEY = "";
 
     static final String SORT_PARAM = "sort_by";
