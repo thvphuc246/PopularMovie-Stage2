@@ -38,41 +38,32 @@
 
             <TextView
                 android:id="@+id/textview_release_date_title"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/heading_release_date"
-                android:textStyle="italic"
-                android:textSize="@dimen/abc_text_size_medium_material" />
+                android:layout_width="wrap_content"
+                android:theme="@style/mediumTextView"
+                android:text="@string/heading_release_date" />
 
             <TextView
                 android:id="@+id/textview_release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="2dp"
-                android:paddingEnd="2dp"
-                android:text="@string/example_release_date"
-                android:textSize="@dimen/abc_text_size_large_material" />
+                android:theme="@style/largeTextView"
+                android:text="@string/example_release_date" />
 
             <TextView
                 android:id="@+id/textview_vote_average_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="@string/heading_vote_average"
-                android:textStyle="italic"
-                android:textSize="@dimen/abc_text_size_medium_material" />
+                android:theme="@style/mediumTextView"
+                android:text="@string/heading_vote_average" />
 
             <TextView
                 android:id="@+id/textview_vote_average"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="2dp"
-                android:paddingEnd="2dp"
+                android:theme="@style/largeTextView"
                 android:text="@string/example_vote_average"
-                android:textStyle="bold"
-                android:textSize="@dimen/abc_text_size_large_material" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

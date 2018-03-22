@@ -16,10 +16,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
 
-    private GridView mGridView;
+    @InjectView(R.id.gridview_movie) GridView mGridView;
     private Menu mMenu;
 
     private final String parcel_movie = "PARCEL_MOVIE";
@@ -32,7 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         mGridView = (GridView) findViewById(R.id.gridview_movie);
+        */
+
+        ButterKnife.inject(this);
+
         mGridView.setOnItemClickListener(moviePosterClickListener);
 
         if (savedInstanceState == null) {

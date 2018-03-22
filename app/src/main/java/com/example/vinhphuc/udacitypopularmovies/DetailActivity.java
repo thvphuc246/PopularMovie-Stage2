@@ -13,6 +13,9 @@ import com.example.vinhphuc.udacitypopularmovies.utilities.DateTimeUtils;
 
 import java.text.ParseException;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class DetailActivity extends AppCompatActivity {
     private final String TAG = DetailActivity.class.getSimpleName();
 
@@ -20,22 +23,34 @@ public class DetailActivity extends AppCompatActivity {
     private final String overview_null = "The plot of this movie is currently unknown";
     private final String release_date_null = "No release date found";
 
+    /*
     private TextView tvOriginalTitle;
     private ImageView ivMoviePoster;
     private TextView tvOverview;
     private TextView tvVoteAverage;
     private TextView tvReleaseDate;
+    */
+
+    @InjectView(R.id.textview_original_title) TextView tvOriginalTitle;
+    @InjectView(R.id.imageview_poster) ImageView ivMoviePoster;
+    @InjectView(R.id.textview_overview) TextView tvOverview;
+    @InjectView(R.id.textview_vote_average) TextView tvVoteAverage;
+    @InjectView(R.id.textview_release_date) TextView tvReleaseDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        /*
         tvOriginalTitle = (TextView) findViewById(R.id.textview_original_title);
         ivMoviePoster = (ImageView) findViewById(R.id.imageview_poster);
         tvOverview = (TextView) findViewById(R.id.textview_overview);
         tvVoteAverage = (TextView) findViewById(R.id.textview_vote_average);
         tvReleaseDate = (TextView) findViewById(R.id.textview_release_date);
+        */
+
+        ButterKnife.inject(this);
 
         Intent intent = getIntent();
         Movie movie = intent.getParcelableExtra(parcel_movie);
