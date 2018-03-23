@@ -1,4 +1,4 @@
-package com.example.vinhphuc.udacitypopularmovies;
+package com.example.vinhphuc.udacitypopularmovies.adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.example.vinhphuc.udacitypopularmovies.Movie;
+import com.example.vinhphuc.udacitypopularmovies.R;
 import com.squareup.picasso.Picasso;
 
 /**
