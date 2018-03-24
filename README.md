@@ -1,4 +1,5 @@
 # Udacity-PopularMovie-2
+## *This application is still in development*
 This is the Android application project for Stage 2 of the Udacity Android Developer Nanodegree Program, using API from [TMDb](https://www.themoviedb.org/) and Image loading & caching library from [Picasso](http://square.github.io/picasso/).
 
 To start using, insert your TMDb API key in the marked place (*TODO* section) in class NetworkUtils.
