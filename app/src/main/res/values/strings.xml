@@ -8,6 +8,12 @@
     <string name="title_activity_movie_details">Movie Details</string>
 
     <!-- UI text -->
+    <!--MainActivity texts-->
+    <string name="sort">Sort</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="favourite">Favourite</string>
+
     <!-- Headline for release date -->
     <string name="heading_release_date">Release Date</string>
     <!-- Headline for user vote average -->
@@ -46,6 +52,7 @@
     <!--Preference items-->
     <string name="pref_sort_vote_avg_desc_key">SORT_VOTE_AVERAGE_DESC</string>
     <string name="pref_sort_pop_desc_key">SORT_POPULARITY_DESC</string>
+    <string name="pref_sort_fav_desc_key">SORT_FAVOURITE_DESC</string>
 
     <!--Error user information-->
     <string name="error_need_internet">This application needs Internet connection to function.</string>
