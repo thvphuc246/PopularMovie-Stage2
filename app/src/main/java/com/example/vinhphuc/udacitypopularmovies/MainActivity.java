@@ -4,12 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -24,13 +20,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vinhphuc.udacitypopularmovies.adapters.MovieAdapter;
+import com.example.vinhphuc.udacitypopularmovies.api.MovieApiCallback;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiManager;
+import com.example.vinhphuc.udacitypopularmovies.models.Movies;
 import com.example.vinhphuc.udacitypopularmovies.utilities.EndlessRecyclerViewScrollListener;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -68,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_RECYCLER_POSITION_KEY = "recycler_position";
     public static final int FAVOURITES_MOVIE_LOADER_ID = 89;
 
-    private Movie mMovies = new Movie();
+    private Movies mMovies = new Movies();
 
     //Checking paramether if the activity is in two-pane mode, i.e. running on a tablet device
     private boolean mTwoPane;
@@ -137,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        Movie tempMovie = savedInstanceState.getParcelable(BUNDLE_MOVIES_KEY);
+        Movies tempMovie = savedInstanceState.getParcelable(BUNDLE_MOVIES_KEY);
         int position = savedInstanceState.getInt(BUNDLE_RECYCLER_POSITION_KEY);
         if (tempMovie != null) {
             mMovies = tempMovie;
@@ -300,13 +296,13 @@ public class MainActivity extends AppCompatActivity {
             if (isNetworkAvailable()) {
                 getSupportLoaderManager().destroyLoader(FAVOURITES_MOVIE_LOADER_ID);
 
-                MovieApiManager.getInstance().getMovies(sortBy, page, new MoviesApiCallback<Movies>() {
+                MovieApiManager.getInstance().getMovies(sortBy, page, new MovieApiCallback<Movies>() {
                     @Override
                     public void onResponse(Movies result) {
                         if (result != null) {
                             if (page == 1) { // Refreshing movies
                                 mMovies = result;
-                                setRecyclerViewAdapter(new MovieAdapter(MovieListActivity.this, mMovies, mTwoPane));
+                                setRecyclerViewAdapter(new MovieAdapter(MainActivity.this, mMovies, mTwoPane));
                             } else {
                                 if (mRecyclerView.getAdapter() instanceof MovieAdapter) {
                                     ((MovieAdapter) mRecyclerView.getAdapter()).updateMovies(result);

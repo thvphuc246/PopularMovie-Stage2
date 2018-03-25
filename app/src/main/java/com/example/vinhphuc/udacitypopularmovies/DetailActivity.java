@@ -53,7 +53,7 @@ public class DetailActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
         Intent intent = getIntent();
-        Movie movie = intent.getParcelableExtra(parcel_movie);
+        Movies movie = intent.getParcelableExtra(parcel_movie);
 
         tvOriginalTitle.setText(movie.getOriginalTitle());
 

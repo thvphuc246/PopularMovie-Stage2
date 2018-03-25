@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
 import com.example.vinhphuc.udacitypopularmovies.utilities.NetworkUtils;
 
 import java.io.IOException;

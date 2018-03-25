@@ -7,15 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.vinhphuc.udacitypopularmovies.DetailActivity;
 import com.example.vinhphuc.udacitypopularmovies.MainActivity;
-import com.example.vinhphuc.udacitypopularmovies.Movie;
+import com.example.vinhphuc.udacitypopularmovies.MovieDetailFragment;
+import com.example.vinhphuc.udacitypopularmovies.models.Movies;
 import com.example.vinhphuc.udacitypopularmovies.R;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiCallback;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiManager;
+import com.example.vinhphuc.udacitypopularmovies.holders.MovieViewHolder;
+import com.example.vinhphuc.udacitypopularmovies.utilities.ImageUtils;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -26,11 +28,11 @@ import retrofit2.Call;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private MainActivity mParentActivity;
-    private Movie mMovies;
+    private Movies mMovies;
     private boolean mTwoPane;
-    private Call<Movie> callRequest;
+    private Call<Movies> callRequest;
 
-    public MoviesAdapter(MainActivity parent, Movie movies, boolean twoPane) {
+    public MovieAdapter(MainActivity parent, Movies movies, boolean twoPane) {
         this.mParentActivity = parent;
         this.mMovies = movies;
         this.mTwoPane = twoPane;
@@ -92,9 +94,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         if (Misc.isNetworkAvailable(context)) {
 
             movieViewHolder.showProgress(true);
-            callRequest = MovieApiManager.getInstance().getMovie(movieId, new MovieApiCallback<Movie>() {
+            callRequest = MovieApiManager.getInstance().getMovie(movieId, new MovieApiCallback<Movies>() {
                 @Override
-                public void onResponse(Movie result) {
+                public void onResponse(Movies result) {
 
                     if (result != null) {
                         if (mTwoPane) {
@@ -106,7 +108,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
                                     .replace(R.id.movieDetailContainer, fragment)
                                     .commit();
                         } else {
-                            Intent intent = new Intent(context, MovieDetailActivity.class);
+                            Intent intent = new Intent(context, DetailActivity.class);
                             intent.putExtra(MovieDetailFragment.EXTRA_MOVIE_KEY, result);
 
                             context.startActivity(intent);
