@@ -25,11 +25,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vinhphuc.udacitypopularmovies.adapters.ReviewAdapter;
+import com.example.vinhphuc.udacitypopularmovies.adapters.VideoAdapter;
+import com.example.vinhphuc.udacitypopularmovies.data.MoviesContract;
 import com.example.vinhphuc.udacitypopularmovies.models.Movie.Genre;
 import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
 import com.example.vinhphuc.udacitypopularmovies.models.Movie.Video;
 import com.example.vinhphuc.udacitypopularmovies.models.Movies;
 import com.example.vinhphuc.udacitypopularmovies.utilities.ImageUtils;
+import com.example.vinhphuc.udacitypopularmovies.utilities.SpacingItemDecoration;
 import com.nex3z.flowlayout.FlowLayout;
 import com.squareup.picasso.Picasso;
 
@@ -293,7 +297,7 @@ public class MovieDetailFragment extends Fragment {
                     false);
             mRvVideos.setLayoutManager(layoutManager);
             mRvVideos.setHasFixedSize(true);
-            mRvVideos.addItemDecoration(new SpacingItemDecoraton(
+            mRvVideos.addItemDecoration(new SpacingItemDecoration(
                     (int) getResources().getDimension(R.dimen.video_list_items_margin),
                     SpacingItemDecoration.HORIZONTAL)
             );

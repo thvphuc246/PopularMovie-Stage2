@@ -54,6 +54,10 @@
     <string name="pref_sort_pop_desc_key">SORT_POPULARITY_DESC</string>
     <string name="pref_sort_fav_desc_key">SORT_FAVOURITE_DESC</string>
 
+    <!--Review list strings-->
+    <string name="author">Author</string>
+    <string name="review_label">Review</string>
+
     <!--Error user information-->
     <string name="error_need_internet">This application needs Internet connection to function.</string>
 </resources>
