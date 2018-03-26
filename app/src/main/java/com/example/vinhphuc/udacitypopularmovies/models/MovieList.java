@@ -14,13 +14,13 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Movies implements Parcelable {
+public class MovieList implements Parcelable {
     @JsonProperty("page")
     private Integer page;
     @JsonProperty("results")
     private List<MovieResult> resultList;
 
-    public Movies() {
+    public MovieList() {
         this.page = 0;
         this.resultList = new ArrayList<>();
     }
@@ -37,20 +37,20 @@ public class Movies implements Parcelable {
         dest.writeTypedList(this.resultList);
     }
 
-    protected Movies(Parcel in) {
+    protected MovieList(Parcel in) {
         this.page = (Integer) in.readValue(Integer.class.getClassLoader());
         this.resultList = in.createTypedArrayList(MovieResult.CREATOR);
     }
 
-    public static final Creator<Movies> CREATOR = new Creator<Movies>() {
+    public static final Creator<MovieList> CREATOR = new Creator<MovieList>() {
         @Override
-        public Movies createFromParcel(Parcel parcel) {
-            return new Movies(parcel);
+        public MovieList createFromParcel(Parcel parcel) {
+            return new MovieList(parcel);
         }
 
         @Override
-        public Movies[] newArray(int size) {
-            return new Movies[size];
+        public MovieList[] newArray(int size) {
+            return new MovieList[size];
         }
     };
 
@@ -63,8 +63,8 @@ public class Movies implements Parcelable {
         return this.resultList;
     }
 
-    public void appendMovies(Movies movies) {
-        this.page = movies.getPage();
-        this.resultList.addAll(movies.getResultList());
+    public void appendMovies(MovieList movieList) {
+        this.page = movieList.getPage();
+        this.resultList.addAll(movieList.getResultList());
     }
 }

@@ -13,6 +13,7 @@
     <string name="most_popular">Most Popular</string>
     <string name="top_rated">Top Rated</string>
     <string name="favourite">Favourite</string>
+    <string name="movies">Movies</string>
 
     <!-- Headline for release date -->
     <string name="heading_release_date">Release Date</string>

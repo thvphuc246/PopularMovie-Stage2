@@ -21,10 +21,10 @@ public final class NetworkUtils {
     public static String MOVIEDB_BASE_URL = "http://api.themoviedb.org/3/discover/movie";
 
     //TODO (1) insert your API key here
-    public static String MOVIEDB_API_KEY = "";
+    public static String MOVIEDB_API_KEY = "663b2941e9827e2d9c06ea5a9535f04d";
 
-    static final String SORT_PARAM = "sort_by";
-    static final String API_KEY_PARAM = "api_key";
+    public static final String SORT_PARAM = "sort_by";
+    public static final String API_KEY_PARAM = "api_key";
 
     public static URL buildUrl(String[] params) {
         Uri builtUri = Uri.parse(MOVIEDB_BASE_URL).buildUpon()

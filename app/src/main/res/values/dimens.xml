@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_low">2dp</dimen>
     <dimen name="padding_high">10dp</dimen>

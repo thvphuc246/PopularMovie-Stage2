@@ -3,7 +3,8 @@ package com.example.vinhphuc.udacitypopularmovies.api;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.vinhphuc.udacitypopularmovies.models.Movies;
+import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
+import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 
 import java.io.Serializable;
 
@@ -21,7 +22,7 @@ public final class MovieApiManager implements Serializable {
     private static final String TAG = MovieApiManager.class.getSimpleName();
     private static volatile MovieApiManager sharedInstance = new MovieApiManager();
 
-    public static final String MOVIEDB_API_KEY = "663b2941e9827e2d9c06ea5a9535f04d";
+    public static final String MOVIEDB_API_KEY = "";
     public static final String MOVIEDB_BASE_URL = "http://api.themoviedb.org/3/";
     public static final String MOVIEDB_IMAGE_URL = "http://image.tmdb.org/t/p/";
 
@@ -79,17 +80,17 @@ public final class MovieApiManager implements Serializable {
         }
     }
 
-    public Call<Movies> getMovie(int movieId, final MovieApiCallback<Movies> movieApiCallback) {
-        Call<Movies> call = movieApiService.getMovie(movieId, MOVIEDB_API_KEY);
+    public Call<Movie> getMovie(int movieId, final MovieApiCallback<Movie> movieApiCallback) {
+        Call<Movie> call = movieApiService.getMovie(movieId, MOVIEDB_API_KEY);
 
-        call.enqueue(new Callback<Movies>() {
+        call.enqueue(new Callback<Movie>() {
             @Override
-            public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
+            public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
                 movieApiCallback.onResponse(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<Movies> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) {
                 if (call.isCanceled()) {
                     Log.e(TAG, "Request was cancelled");
                     movieApiCallback.onCancel();
@@ -103,7 +104,7 @@ public final class MovieApiManager implements Serializable {
         return call;
     }
 
-    public void getMovies(SortBy sortBy, int page, MovieApiCallback<Movies> movieApiCallback) {
+    public void getMovieList(SortBy sortBy, int page, MovieApiCallback<MovieList> movieApiCallback) {
 
         switch (sortBy) {
             case MostPopular:
@@ -116,16 +117,16 @@ public final class MovieApiManager implements Serializable {
 
     }
 
-    private void getPopularMovies(int page, final MovieApiCallback<Movies> movieApiCallback) {
-        movieApiService.getPopularMovies(MOVIEDB_API_KEY, page).enqueue(new Callback<Movies>() {
+    private void getPopularMovies(int page, final MovieApiCallback<MovieList> movieApiCallback) {
+        movieApiService.getPopularMovies(MOVIEDB_API_KEY, page).enqueue(new Callback<MovieList>() {
 
             @Override
-            public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
+            public void onResponse(@NonNull Call<MovieList> call, @NonNull Response<MovieList> response) {
                 movieApiCallback.onResponse(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<Movies> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<MovieList> call, @NonNull Throwable t) {
                 if (call.isCanceled()) {
                     Log.e(TAG, "Request was cancelled");
                     movieApiCallback.onCancel();
@@ -138,16 +139,16 @@ public final class MovieApiManager implements Serializable {
         });
     }
 
-    private void getTopRatedMovies(int page, final MovieApiCallback<Movies> movieApiCallback) {
-        movieApiService.getTopRatedMovies(MOVIEDB_API_KEY, page).enqueue(new Callback<Movies>() {
+    private void getTopRatedMovies(int page, final MovieApiCallback<MovieList> movieApiCallback) {
+        movieApiService.getTopRatedMovies(MOVIEDB_API_KEY, page).enqueue(new Callback<MovieList>() {
 
             @Override
-            public void onResponse(@NonNull Call<Movies> call, @NonNull Response<Movies> response) {
+            public void onResponse(@NonNull Call<MovieList> call, @NonNull Response<MovieList> response) {
                 movieApiCallback.onResponse(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<Movies> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<MovieList> call, @NonNull Throwable t) {
                 if (call.isCanceled()) {
                     Log.e(TAG, "Request was cancelled");
                     movieApiCallback.onCancel();

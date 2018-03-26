@@ -31,7 +31,6 @@ import com.example.vinhphuc.udacitypopularmovies.data.MoviesContract;
 import com.example.vinhphuc.udacitypopularmovies.models.Movie.Genre;
 import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
 import com.example.vinhphuc.udacitypopularmovies.models.Movie.Video;
-import com.example.vinhphuc.udacitypopularmovies.models.Movies;
 import com.example.vinhphuc.udacitypopularmovies.utilities.ImageUtils;
 import com.example.vinhphuc.udacitypopularmovies.utilities.SpacingItemDecoration;
 import com.nex3z.flowlayout.FlowLayout;
@@ -51,36 +50,31 @@ public class MovieDetailFragment extends Fragment {
     public static String EXTRA_MOVIE_KEY = "extra_movie";
 
     @InjectView(R.id.svDetailsContainer)
-    private NestedScrollView mSvDetailsContainer;
+    NestedScrollView mSvDetailsContainer;
     @InjectView(R.id.imageview_poster)
-    private ImageView mIvMovie;
+    ImageView mIvMovie;
     @InjectView(R.id.tvTitle)
-    private TextView mTvTitle;
+    TextView mTvTitle;
     @InjectView(R.id.tvReleaseDateValue)
-    private TextView mTvReleaseDateValue;
+    TextView mTvReleaseDateValue;
     @InjectView(R.id.tvDurationValue)
-    private TextView mTvDurationValue;
+    TextView mTvDurationValue;
     @InjectView(R.id.tvVoteValue)
-    private TextView mTvVoteAvgValue;
+    TextView mTvVoteAvgValue;
     @InjectView(R.id.tvPlotValue)
-    private TextView mTvPlotValue;
+    TextView mTvPlotValue;
     @InjectView(R.id.ratingBar)
-    private MaterialRatingBar mRatingBar;
+    MaterialRatingBar mRatingBar;
     @InjectView(R.id.genresContainer)
-    private FlowLayout mGenresContainer;
+    FlowLayout mGenresContainer;
     @InjectView(R.id.rvVideos)
-    private RecyclerView mRvVideos;
+    RecyclerView mRvVideos;
     @InjectView(R.id.tvReviewsTitle)
-    private TextView mTvReviewsTitle;
+    TextView mTvReviewsTitle;
     @InjectView(R.id.rvReviews)
-    private RecyclerView mRvReviews;
+    RecyclerView mRvReviews;
     @InjectView(R.id.fbLike)
-    private FloatingActionButton mFbLike;
-    @InjectView(R.id.toolbar_layout)
-    private CollapsingToolbarLayout appBarLayout;
-    @InjectView(R.id.backDropImage)
-    private ImageView backdropImageView;
-
+    FloatingActionButton mFbLike;
 
     private Movie mMovie;
 
@@ -229,24 +223,21 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void populateUI() {
+        CollapsingToolbarLayout appBarLayout = getActivity().findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
             appBarLayout.setTitle(mMovie.getTitle());
         }
 
         switchFabStyle();
 
-        if (backdropImageView != null) {
-            backdropImageView.post(new Runnable() {
+        final ImageView backDropImageView = getActivity().findViewById(R.id.backDropImage);
+        if (backDropImageView != null) {
+            backDropImageView.post(new Runnable() {
                 @Override
                 public void run() {
                     Picasso.with(getActivity().getApplicationContext())
-                            .load(ImageUtils.
-                                    buildBackdropImageUrl(
-                                            mMovie.getBackdropPath(),
-                                            backdropImageView.getWidth()
-                                    )
-                            )
-                            .into(backdropImageView);
+                            .load(ImageUtils.buildBackdropImageUrl(mMovie.getBackdropPath(), backDropImageView.getWidth()))
+                            .into(backDropImageView);
                 }
             });
         }
@@ -331,19 +322,23 @@ public class MovieDetailFragment extends Fragment {
         }
     }
 
-    public boolean isFavouriteMovie() {
+    private boolean isFavouriteMovie() {
         final Cursor cursor;
         cursor = getContext()
                 .getContentResolver()
                 .query(MoviesContract.MoviesEntry.CONTENT_URI,
                         null,
                         "movie_id=?",
-                        new String[]{
-                            String.valueOf(mMovie.getId())
-                        },
+                        new String[]{String.valueOf(mMovie.getId())},
                         null);
-        boolean result = cursor.getCount() > 0;
-        cursor.close();
-        return result;
+
+        try {
+            boolean result = cursor.getCount() > 0;
+            cursor.close();
+            return result;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

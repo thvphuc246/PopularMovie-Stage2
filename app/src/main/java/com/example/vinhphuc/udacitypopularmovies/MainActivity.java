@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -23,40 +24,37 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vinhphuc.udacitypopularmovies.adapters.FavouriteMovieAdapter;
 import com.example.vinhphuc.udacitypopularmovies.adapters.MovieAdapter;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiCallback;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiManager;
-import com.example.vinhphuc.udacitypopularmovies.models.Movies;
+import com.example.vinhphuc.udacitypopularmovies.data.MoviesContract;
+import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 import com.example.vinhphuc.udacitypopularmovies.utilities.EndlessRecyclerViewScrollListener;
+import com.example.vinhphuc.udacitypopularmovies.utilities.NetworkUtils;
+import com.example.vinhphuc.udacitypopularmovies.utilities.SpacingItemDecoration;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String TAG = MainActivity.class.getSimpleName();
-
-    @InjectView(R.id.toolbar)
-    private Toolbar toolbar;
-    @InjectView(R.id.noDataContainer)
-    private View mNoDataContainer;
-    @InjectView(R.id.tvNoDataMsg)
-    private TextView mNoDataContainerMsg;
-    @InjectView(R.id.rvMovieList)
-    private RecyclerView mRecyclerView;
-    @InjectView(R.id.swipeRefreshLayout)
-    private SwipyRefreshLayout mSwipeRefreshLayout;
 
     private EndlessRecyclerViewScrollListener mScrollListener;
 
-    private Menu mMenu;
-
-    private final String parcel_movie = "PARCEL_MOVIE";
-    private final String pref_sort_method_key = "SORT_METHOD";
-    private final String tmdb_sort_pop_desc = "popularity.desc";
-    private final String tmdb_sort_vote_avg_desc = "vote_average.desc";
-    private final String tmdb_sort_fav_desc = "favourite.desc";
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipyRefreshLayout mSwipeRefreshLayout;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.rvMovieList)
+    RecyclerView mRecyclerView;
+    @InjectView(R.id.noDataContainer)
+    View mNoDataContainer;
+    @InjectView(R.id.tvNoDataMsg)
+    TextView mNoDataContainerMsg;
 
     private MovieApiManager.SortBy sortBy = MovieApiManager.SortBy.MostPopular;
 
@@ -64,9 +62,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_RECYCLER_POSITION_KEY = "recycler_position";
     public static final int FAVOURITES_MOVIE_LOADER_ID = 89;
 
-    private Movies mMovies = new Movies();
+    private MovieList mMovies = new MovieList();
 
-    //Checking paramether if the activity is in two-pane mode, i.e. running on a tablet device
+    /**
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
+     * device.
+     */
     private boolean mTwoPane;
 
     // Receivers
@@ -99,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.inject(this);
 
         loadSortSelected();
@@ -108,10 +108,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getTitle());
 
         if (findViewById(R.id.movieDetailContainer) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
+            /*
+            The detail container view will be present only in the
+            large-screen layouts (res/values-w900dp).
+            If this view is present, then the
+            activity should be in two-pane mode.
+            */
             mTwoPane = true;
         }
 
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (mScrollListener != null && !mMovies.getResults().isEmpty()) {
+        if (mScrollListener != null && !mMovies.getResultList().isEmpty()) {
             outState.putInt(BUNDLE_RECYCLER_POSITION_KEY, mScrollListener.getFirstCompletelyVisibleItemPosition());
             outState.putParcelable(BUNDLE_MOVIES_KEY, mMovies);
         }
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        Movies tempMovie = savedInstanceState.getParcelable(BUNDLE_MOVIES_KEY);
+        MovieList tempMovie = savedInstanceState.getParcelable(BUNDLE_MOVIES_KEY);
         int position = savedInstanceState.getInt(BUNDLE_RECYCLER_POSITION_KEY);
         if (tempMovie != null) {
             mMovies = tempMovie;
@@ -195,7 +197,10 @@ public class MainActivity extends AppCompatActivity {
                         item.setChecked(true);
                         saveSortSelected();
                     } else {
-                        Toast.makeText(getApplicationContext(), R.string.error_need_internet, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                R.string.error_need_internet,
+                                Toast.LENGTH_SHORT)
+                                .show();
                     }
                 }
                 break;
@@ -207,7 +212,10 @@ public class MainActivity extends AppCompatActivity {
                         item.setChecked(true);
                         saveSortSelected();
                     } else {
-                        Toast.makeText(getApplicationContext(), R.string.error_need_internet, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                R.string.error_need_internet,
+                                Toast.LENGTH_SHORT)
+                                .show();
                     }
                 }
                 break;
@@ -228,14 +236,20 @@ public class MainActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         int spanCount = getHandySpanCount();
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), spanCount);
+        GridLayoutManager layoutManager =
+                new GridLayoutManager(getApplicationContext(), spanCount);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.addItemDecoration(new SpacingItemDecoration((int) getResources().getDimension(R.dimen.movie_list_items_margin), SpacingItemDecoration.GRID));
+        mRecyclerView.addItemDecoration(new SpacingItemDecoration(
+                (int) getResources().getDimension(R.dimen.movie_list_items_margin),
+                SpacingItemDecoration.GRID));
         mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int totalItemsCount, RecyclerView view) {
-                // We don't want to display "error_need_internet" message on Endless Scroll so check if network is available
+                /*
+                We don't want to display "no_internet" message on Endless Scroll
+                so check if network is available
+                */
                 if (isNetworkAvailable()) {
                     loadMoreMovies();
                 }
@@ -296,13 +310,16 @@ public class MainActivity extends AppCompatActivity {
             if (isNetworkAvailable()) {
                 getSupportLoaderManager().destroyLoader(FAVOURITES_MOVIE_LOADER_ID);
 
-                MovieApiManager.getInstance().getMovies(sortBy, page, new MovieApiCallback<Movies>() {
+                MovieApiManager.getInstance().getMovieList(sortBy, page, new MovieApiCallback<MovieList>() {
                     @Override
-                    public void onResponse(Movies result) {
+                    public void onResponse(MovieList result) {
                         if (result != null) {
                             if (page == 1) { // Refreshing movies
                                 mMovies = result;
-                                setRecyclerViewAdapter(new MovieAdapter(MainActivity.this, mMovies, mTwoPane));
+                                setRecyclerViewAdapter(new MovieAdapter(
+                                        MainActivity.this
+                                        , mMovies,
+                                        mTwoPane));
                             } else {
                                 if (mRecyclerView.getAdapter() instanceof MovieAdapter) {
                                     ((MovieAdapter) mRecyclerView.getAdapter()).updateMovies(result);
@@ -310,7 +327,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                         } else {
                             mNoDataContainerMsg.setText(R.string.movie_detail_error_message);
-                            Toast.makeText(getApplicationContext(), R.string.movie_detail_error_message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    R.string.movie_detail_error_message,
+                                    Toast.LENGTH_SHORT).show();
                         }
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
@@ -322,13 +342,18 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mNoDataContainerMsg.setText(R.string.error_need_internet);
-                Toast.makeText(getApplicationContext(), R.string.error_need_internet, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        R.string.error_need_internet,
+                        Toast.LENGTH_SHORT).show();
             }
         } else {
-            mMovies = new Movies();
+            mMovies = new MovieList();
             // Reset recycler adapter
             setRecyclerViewAdapter(null);
-            getSupportLoaderManager().initLoader(FAVOURITES_MOVIE_LOADER_ID, null, this);
+            getSupportLoaderManager().initLoader(
+                    FAVOURITES_MOVIE_LOADER_ID,
+                    null,
+                    this);
         }
 
     }
@@ -350,7 +375,9 @@ public class MainActivity extends AppCompatActivity {
         if (mTwoPane) {
             // If in Two Pane Mode Recycler View width is Guidelines Percentage
             TypedValue typedValue = new TypedValue();
-            getResources().getValue(R.dimen.movies_list_detail_separator_percent, typedValue, true);
+            getResources().getValue(R.dimen.movies_list_detail_separator_percent,
+                    typedValue,
+                    true);
             float ac = typedValue.getFloat();
             ab = ac * ab;
         }
@@ -359,11 +386,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isNetworkAvailable() {
-        return Misc.isNetworkAvailable(getApplicationContext());
+        return isNetworkAvailable(getApplicationContext());
+    }
+
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     private void saveSortSelected() {
-        getPreferences(Context.MODE_PRIVATE).edit().putInt(getString(R.string.saved_sort_by_key), sortBy.ordinal()).commit();
+        getPreferences(Context.MODE_PRIVATE)
+                .edit()
+                .putInt(NetworkUtils.SORT_PARAM, sortBy.ordinal())
+                .commit();
     }
 
     private void setTitleAccordingSort() {
@@ -381,7 +417,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadSortSelected() {
-        sortBy = MovieApiManager.SortBy.fromId(getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.saved_sort_by_key), 0));
+        sortBy = MovieApiManager.SortBy.fromId(
+                getPreferences(Context.MODE_PRIVATE)
+                .getInt(NetworkUtils.SORT_PARAM, 0));
         setTitleAccordingSort();
     }
 
@@ -420,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
                             MoviesContract.MoviesEntry._ID);
 
                 } catch (Exception e) {
-                    Logger.e("Failed to asynchronously load data.");
+                    Log.e(TAG, "Failed to asynchronously load data.");
                     e.printStackTrace();
                     return null;
                 }
@@ -443,5 +481,10 @@ public class MainActivity extends AppCompatActivity {
             mNoDataContainerMsg.setText(R.string.no_favourite_movies_message);
         }
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

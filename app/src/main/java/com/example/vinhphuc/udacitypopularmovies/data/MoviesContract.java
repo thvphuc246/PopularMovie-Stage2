@@ -13,10 +13,12 @@ public class MoviesContract {
     public static final String PATH_MOVIES = "movies";
 
     public static final class MoviesEntry implements BaseColumns {
+
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_MOVIES)
-                .build();
+                        .appendPath(PATH_MOVIES)
+                        .build();
+
         public static final String TABLE_NAME = "movies";
         public static final String COLUMN_ID = "movie_id";
         public static final String COLUMN_TITLE = "title";
@@ -26,5 +28,6 @@ public class MoviesContract {
         public static final String COLUMN_RELEASE_DATE = "release_date";
         public static final String COLUMN_RUNTIME = "runtime";
         public static final String COLUMN_VOTE_AVERAGE = "vote_average";
+
     }
 }

@@ -1,93 +1,59 @@
 package com.example.vinhphuc.udacitypopularmovies;
 
-import android.content.Intent;
-import android.graphics.Typeface;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-import com.example.vinhphuc.udacitypopularmovies.utilities.DateTimeUtils;
-
-import java.text.ParseException;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 public class DetailActivity extends AppCompatActivity {
-    private final String TAG = DetailActivity.class.getSimpleName();
-
-    private final String parcel_movie = "PARCEL_MOVIE";
-    private final String overview_null = "The plot of this movie is currently unknown";
-    private final String release_date_null = "No release date found";
-
-    /*
-    private TextView tvOriginalTitle;
-    private ImageView ivMoviePoster;
-    private TextView tvOverview;
-    private TextView tvVoteAverage;
-    private TextView tvReleaseDate;
-    */
-
-    @InjectView(R.id.textview_original_title) TextView tvOriginalTitle;
-    @InjectView(R.id.imageview_poster) ImageView ivMoviePoster;
-    @InjectView(R.id.textview_overview) TextView tvOverview;
-    @InjectView(R.id.textview_vote_average) TextView tvVoteAverage;
-    @InjectView(R.id.textview_release_date) TextView tvReleaseDate;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
+        setSupportActionBar(toolbar);
+
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         /*
-        tvOriginalTitle = (TextView) findViewById(R.id.textview_original_title);
-        ivMoviePoster = (ImageView) findViewById(R.id.imageview_poster);
-        tvOverview = (TextView) findViewById(R.id.textview_overview);
-        tvVoteAverage = (TextView) findViewById(R.id.textview_vote_average);
-        tvReleaseDate = (TextView) findViewById(R.id.textview_release_date);
+
+        savedInstanceState is non-null when there is fragment state
+        saved from previous configurations of this activity
+        (e.g. when rotating the screen from portrait to landscape).
+        In this case, the fragment will automatically be re-added
+        to its container so we don't need to manually add it.
+        For more information, see the Fragments API guide at:
+
+        http://developer.android.com/guide/components/fragments.html
+
         */
-
-        ButterKnife.inject(this);
-
-        Intent intent = getIntent();
-        Movies movie = intent.getParcelableExtra(parcel_movie);
-
-        tvOriginalTitle.setText(movie.getOriginalTitle());
-
-        Picasso.with(this)
-                .load(movie.getPosterPath())
-                .resize(getResources().getInteger(R.integer.tmdb_poster_w185_width),
-                        getResources().getInteger(R.integer.tmdb_poster_w185_height))
-                .error(R.drawable.not_found)
-                .placeholder(R.drawable.searching)
-                .into(ivMoviePoster);
-
-        String overview = movie.getOverview();
-        if (overview == null) {
-            tvOverview.setTypeface(null, Typeface.ITALIC);
-            overview = overview_null;
+        if (savedInstanceState == null) {
+            // Create the detail fragment and add it to the activity
+            // using a fragment transaction.
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(MovieDetailFragment.EXTRA_MOVIE_KEY,
+                    getIntent().getParcelableExtra(MovieDetailFragment.EXTRA_MOVIE_KEY));
+            MovieDetailFragment fragment = new MovieDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.movieDetailContainer, fragment)
+                    .commit();
         }
-        tvOverview.setText(overview);
-        tvVoteAverage.setText(movie.getDetailedVoteAverage());
+    }
 
-        /*
-        * First get the release date from the object - to be used if something goes wrong with
-        * getting localized release date (catch).
-        * */
-        String releaseDate = movie.getReleaseDate();
-        if (releaseDate != null) {
-            try {
-                releaseDate = DateTimeUtils.getLocalizedDate(this, releaseDate, movie.getDateFormat());
-            } catch (ParseException e) {
-                Log.e(TAG, "Error with parsing movie release date", e);
-            }
-        } else {
-            tvReleaseDate.setTypeface(null, Typeface.ITALIC);
-            releaseDate = release_date_null;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
         }
-        tvReleaseDate.setText(releaseDate);
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -2,6 +2,7 @@ package com.example.vinhphuc.udacitypopularmovies.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,8 @@ import android.widget.Toast;
 import com.example.vinhphuc.udacitypopularmovies.DetailActivity;
 import com.example.vinhphuc.udacitypopularmovies.MainActivity;
 import com.example.vinhphuc.udacitypopularmovies.MovieDetailFragment;
-import com.example.vinhphuc.udacitypopularmovies.models.Movies;
+import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
+import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 import com.example.vinhphuc.udacitypopularmovies.R;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiCallback;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiManager;
@@ -28,11 +30,11 @@ import retrofit2.Call;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private MainActivity mParentActivity;
-    private Movies mMovies;
+    private MovieList mMovies;
     private boolean mTwoPane;
-    private Call<Movies> callRequest;
+    private Call<Movie> callRequest;
 
-    public MovieAdapter(MainActivity parent, Movies movies, boolean twoPane) {
+    public MovieAdapter(MainActivity parent, MovieList movies, boolean twoPane) {
         this.mParentActivity = parent;
         this.mMovies = movies;
         this.mTwoPane = twoPane;
@@ -52,14 +54,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             @Override
             public void run() {
                 Picasso.with(mParentActivity.getApplicationContext())
-                        .load(ImageUtils.buildPosterImageUrl(mMovies.getResults().get(pos).getPosterPath(), holder.mIvMovie.getWidth()))
+                        .load(ImageUtils.buildPosterImageUrl(mMovies.getResultList().get(pos).getPosterPath(), holder.mIvMovie.getWidth()))
                         .placeholder(R.drawable.ic_launcher_foreground)
                         .error(R.drawable.ic_launcher_foreground)
                         .into(holder.mIvMovie);
             }
         });
 
-        holder.itemView.setTag(mMovies.getResults().get(position).getId());
+        holder.itemView.setTag(mMovies.getResultList().get(position).getId());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,24 +81,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mMovies.getResults().size();
+        return mMovies.getResultList().size();
     }
 
-    public void updateMovies(Movies movies) {
-        int position = this.mMovies.getResults().size() + 1;
+    public void updateMovies(MovieList movies) {
+        int position = this.mMovies.getResultList().size() + 1;
         this.mMovies.appendMovies(movies);
-        notifyItemRangeInserted(position, movies.getResults().size());
+        notifyItemRangeInserted(position, movies.getResultList().size());
     }
 
     private void getMovieAndShowDetails(final int movieId, final MovieViewHolder movieViewHolder) {
         final Context context = mParentActivity;
 
-        if (Misc.isNetworkAvailable(context)) {
+        if (isNetworkAvailable(context)) {
 
             movieViewHolder.showProgress(true);
-            callRequest = MovieApiManager.getInstance().getMovie(movieId, new MovieApiCallback<Movies>() {
+            callRequest = MovieApiManager.getInstance().getMovie(movieId, new MovieApiCallback<Movie>() {
                 @Override
-                public void onResponse(Movies result) {
+                public void onResponse(Movie result) {
 
                     if (result != null) {
                         if (mTwoPane) {
@@ -132,5 +134,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             Toast.makeText(context, R.string.error_need_internet, Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }
