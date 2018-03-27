@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import com.example.vinhphuc.udacitypopularmovies.R;
 import com.example.vinhphuc.udacitypopularmovies.holders.ReviewViewHolder;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Review;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.ReviewList;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Review;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.ReviewList;
 
 /**
  * Created by VINH PHUC on 26/3/2018.

@@ -3,7 +3,7 @@ package com.example.vinhphuc.udacitypopularmovies.api;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Movie;
 import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 
 import java.io.Serializable;

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.example.vinhphuc.udacitypopularmovies.R;
 import com.example.vinhphuc.udacitypopularmovies.holders.VideoViewHolder;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Video;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.VideoResult;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Video;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.VideoResult;
 import com.squareup.picasso.Picasso;
 
 /**

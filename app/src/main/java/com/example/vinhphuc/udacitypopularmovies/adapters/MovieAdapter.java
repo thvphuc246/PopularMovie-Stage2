@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.vinhphuc.udacitypopularmovies.DetailActivity;
 import com.example.vinhphuc.udacitypopularmovies.MainActivity;
 import com.example.vinhphuc.udacitypopularmovies.MovieDetailFragment;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Movie;
 import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 import com.example.vinhphuc.udacitypopularmovies.R;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiCallback;

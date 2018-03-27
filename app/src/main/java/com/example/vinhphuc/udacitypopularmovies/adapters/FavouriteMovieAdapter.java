@@ -18,11 +18,10 @@ import com.example.vinhphuc.udacitypopularmovies.api.MovieApiCallback;
 import com.example.vinhphuc.udacitypopularmovies.api.MovieApiManager;
 import com.example.vinhphuc.udacitypopularmovies.data.MoviesContract;
 import com.example.vinhphuc.udacitypopularmovies.holders.MovieViewHolder;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Genre;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.ReviewList;
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.VideoResult;
-import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Genre;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Movie;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.ReviewList;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.VideoResult;
 import com.example.vinhphuc.udacitypopularmovies.utilities.ImageUtils;
 import com.squareup.picasso.Picasso;
 

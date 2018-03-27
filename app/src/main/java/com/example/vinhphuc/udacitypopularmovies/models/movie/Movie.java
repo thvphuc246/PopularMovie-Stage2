@@ -1,4 +1,4 @@
-package com.example.vinhphuc.udacitypopularmovies.models.Movie;
+package com.example.vinhphuc.udacitypopularmovies.models.movie;
 
 import android.content.Context;
 import android.os.Parcel;

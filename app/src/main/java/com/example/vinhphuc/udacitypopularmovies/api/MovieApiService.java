@@ -4,7 +4,7 @@ package com.example.vinhphuc.udacitypopularmovies.api;
  * Created by VINH PHUC on 24/3/2018.
  */
 
-import com.example.vinhphuc.udacitypopularmovies.models.Movie.Movie;
+import com.example.vinhphuc.udacitypopularmovies.models.movie.Movie;
 import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 
 import retrofit2.Call;
