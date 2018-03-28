@@ -1,6 +1,7 @@
 package com.example.vinhphuc.udacitypopularmovies.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -9,8 +10,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class MovieProvider extends ContentProvider {
+    private final String TAG = MovieProvider.class.getSimpleName();
+
     public static final int MOVIES = 100;
     public static final int MOVIE_WITH_ID = 101;
 
@@ -71,7 +75,29 @@ public class MovieProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
             case MOVIES:
-                long id = mOpenHelper.getWritableDatabase().insert(MoviesContract.MoviesEntry.TABLE_NAME, null)
+                long id = mOpenHelper
+                        .getWritableDatabase()
+                        .insert(
+                                MoviesContract.MoviesEntry.TABLE_NAME,
+                                null,
+                                values
+                        );
+                if (id > 0) {
+                    resultUri = ContentUris.withAppendedId(MoviesContract.MoviesEntry.CONTENT_URI, id);
+                } else {
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+        getContext().getContentResolver().notifyChange(resultUri, null);
+        Log.d(TAG, "Uri is " + resultUri);
+        return resultUri;
+    }
+
+    @Override
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectiomArgs) {
+        
     }
 }
