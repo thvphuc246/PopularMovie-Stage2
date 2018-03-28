@@ -1,5 +1,6 @@
 package com.example.vinhphuc.udacitypopularmovies.data;
 
+import android.annotation.TargetApi;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -75,13 +76,10 @@ public class MovieProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
             case MOVIES:
-                long id = mOpenHelper
-                        .getWritableDatabase()
-                        .insert(
+                long id = mOpenHelper.getWritableDatabase().insert(
                                 MoviesContract.MoviesEntry.TABLE_NAME,
                                 null,
-                                values
-                        );
+                                values);
                 if (id > 0) {
                     resultUri = ContentUris.withAppendedId(MoviesContract.MoviesEntry.CONTENT_URI, id);
                 } else {
@@ -97,7 +95,50 @@ public class MovieProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectiomArgs) {
-        
+    public int delete(
+            @NonNull Uri uri,
+            @Nullable String selection,
+            @Nullable String[] selectiomArgs) {
+        int numRoesDeleted;
+
+        switch (sUriMatcher.match(uri)) {
+            case MOVIE_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                numRoesDeleted = mOpenHelper.getWritableDatabase().delete(
+                        MoviesContract.MoviesEntry.TABLE_NAME,
+                        "movie_id=?",
+                        new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (numRoesDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return numRoesDeleted;
+    }
+
+    @Override
+    public int update(
+            @NonNull Uri uri,
+            @Nullable ContentValues values,
+            @Nullable String selection,
+            @Nullable String[] selectionArgs) {
+        throw new RuntimeException("We are not implementing update in Popular Movies.");
+    }
+
+    @Nullable
+    @Override
+    public String getType(@NonNull Uri uri) {
+        throw new RuntimeException("We are not implementing getType in Popular Movies.");
+    }
+
+    @Override
+    @TargetApi(11)
+    public void shutdown() {
+        mOpenHelper.close();
+        super.shutdown();
     }
 }
