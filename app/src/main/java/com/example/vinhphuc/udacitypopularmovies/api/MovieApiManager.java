@@ -22,12 +22,11 @@ public final class MovieApiManager implements Serializable {
     private static final String TAG = MovieApiManager.class.getSimpleName();
     private static volatile MovieApiManager sharedInstance = new MovieApiManager();
 
+    //TODO Add your TMDB API key here first before building the project
     public static final String MOVIEDB_API_KEY = "";
     public static final String MOVIEDB_BASE_URL = "http://api.themoviedb.org/3/";
     public static final String MOVIEDB_IMAGE_URL = "http://image.tmdb.org/t/p/";
-
-    static final String SORT_PARAM = "sort_by";
-    static final String API_KEY_PARAM = "api_key";
+    public static final String SORT_PARAM = "sort_by";
 
     private MovieApiService movieApiService;
 

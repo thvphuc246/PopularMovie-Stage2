@@ -31,7 +31,6 @@ import com.example.vinhphuc.udacitypopularmovies.api.MovieApiManager;
 import com.example.vinhphuc.udacitypopularmovies.data.MoviesContract;
 import com.example.vinhphuc.udacitypopularmovies.models.MovieList;
 import com.example.vinhphuc.udacitypopularmovies.utilities.EndlessRecyclerViewScrollListener;
-import com.example.vinhphuc.udacitypopularmovies.utilities.NetworkUtils;
 import com.example.vinhphuc.udacitypopularmovies.utilities.SpacingItemDecoration;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -398,7 +397,7 @@ public class MainActivity extends AppCompatActivity
     private void saveSortSelected() {
         getPreferences(Context.MODE_PRIVATE)
                 .edit()
-                .putInt(NetworkUtils.SORT_PARAM, sortBy.ordinal())
+                .putInt(MovieApiManager.SORT_PARAM, sortBy.ordinal())
                 .commit();
     }
 
@@ -419,7 +418,7 @@ public class MainActivity extends AppCompatActivity
     private void loadSortSelected() {
         sortBy = MovieApiManager.SortBy.fromId(
                 getPreferences(Context.MODE_PRIVATE)
-                .getInt(NetworkUtils.SORT_PARAM, 0));
+                        .getInt(MovieApiManager.SORT_PARAM, 0));
         setTitleAccordingSort();
     }
 
