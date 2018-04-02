@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-
-    <string name="key_themoviedb">663b2941e9827e2d9c06ea5a9535f04d</string>
+    <string name="content_authority">com.example.vinhphuc.udacitypopularmovies</string>
 
     <!-- Titles -->
     <!-- Title naming the activity Movie Details -->
