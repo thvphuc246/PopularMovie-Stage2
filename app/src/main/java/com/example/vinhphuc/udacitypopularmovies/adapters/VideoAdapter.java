@@ -50,7 +50,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoViewHolder> {
                         Intent.ACTION_VIEW,
                         Uri.parse("http://www.youtube.com/watch?v=".concat(video.getKey()))
                 );
-                mContext.startActivity(intent);
+                if (intent.resolveActivity(mContext.getPackageManager()) != null) {
+                    mContext.startActivity(intent);
+                }
             }
         });
     }
