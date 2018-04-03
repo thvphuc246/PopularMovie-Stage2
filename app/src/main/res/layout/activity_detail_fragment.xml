@@ -14,9 +14,9 @@
             android:id="@+id/topContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/view_margin_high"
+            android:layout_marginStart="@dimen/view_margin_high"
+            android:layout_marginTop="@dimen/view_margin_high"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -25,8 +25,8 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cvVideo"
                 style="@style/ItemCardView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
+                android:layout_height="@dimen/zero_dimen_value"
                 app:layout_constraintDimensionRatio="w,3:2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 android:id="@+id/fbLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="@dimen/view_margin_low"
                 app:layout_constraintBottom_toBottomOf="@+id/tvVoteValue"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                 app:layout_constraintTop_toTopOf="@+id/tvVoteValue"
@@ -62,9 +62,9 @@
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/view_margin_low"
                 android:textAppearance="@style/MovieTitle"
                 android:text="@string/example_original_title"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,9 +73,9 @@
 
             <TextView
                 android:id="@+id/tvVoteValue"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/view_margin_low"
                 android:textAppearance="@style/MovieRating"
                 android:text="@string/example_vote_average"
                 app:layout_constraintStart_toStartOf="@+id/tvTitle"
@@ -84,10 +84,10 @@
             <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/ratingBar"
                 style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="@dimen/view_margin_low"
+                android:layout_marginStart="@dimen/view_margin_low"
                 android:numStars="5"
                 android:rating="2.5"
                 android:stepSize="0.1"
@@ -101,9 +101,9 @@
 
             <TextView
                 android:id="@+id/tvReleaseDateValue"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/view_margin_low"
                 android:textAppearance="@style/MovieDate"
                 android:text="@string/example_release_date"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
@@ -112,9 +112,9 @@
 
             <TextView
                 android:id="@+id/tvDurationValue"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/view_margin_low"
                 android:textAppearance="@style/MovieDate"
                 android:text="@string/example_duration_time"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
@@ -123,13 +123,13 @@
 
             <com.nex3z.flowlayout.FlowLayout
                 android:id="@+id/genresContainer"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_dimen_value"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:flChildSpacing="10dp"
+                android:layout_marginTop="@dimen/view_margin_low"
+                app:flChildSpacing="@dimen/view_margin_high"
                 app:flChildSpacingForLastRow="align"
                 app:flFlow="true"
-                app:flRowSpacing="10dp"
+                app:flRowSpacing="@dimen/view_margin_high"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                 app:layout_constraintStart_toStartOf="@+id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvDurationValue">
@@ -139,9 +139,9 @@
 
         <TextView
             android:id="@+id/tvPlotLabel"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dimen_value"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/view_margin_low"
             android:text="@string/summary"
             android:textAppearance="@style/MovieItemLabel"
             app:layout_constraintEnd_toEndOf="@+id/topContainer"
@@ -150,7 +150,7 @@
 
         <TextView
             android:id="@+id/tvPlotValue"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dimen_value"
             android:layout_height="wrap_content"
             android:textAppearance="@style/MovieItemValue"
             android:text="@string/example_summary"
@@ -160,9 +160,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvVideos"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dimen_value"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/view_margin_high"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvPlotValue"
             app:layout_constraintStart_toStartOf="@+id/tvPlotValue"
@@ -171,9 +171,9 @@
 
         <TextView
             android:id="@+id/tvReviewsTitle"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dimen_value"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/view_margin_high"
             android:text="@string/reviews"
             android:textAppearance="@style/MovieItemLabel"
             android:visibility="gone"
@@ -183,9 +183,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvReviews"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_dimen_value"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
+            android:paddingBottom="@dimen/padding_high"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/tvPlotValue"
             app:layout_constraintHeight_max="300dp"
