@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--AppBar themes-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--CardView item theme-->
+    <style name="ItemCardView" parent="CardView">
+        <item name="cardElevation">2dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+    
+    <!--TextView themes.-->
+    <style name="mediumTextView" parent="android:Widget.TextView">
+        <item name="android:paddingTop">@dimen/padding_high</item>
+        <item name="android:paddingLeft">@dimen/padding_high</item>
+        <item name="android:paddingRight">@dimen/padding_low</item>
+        <item name="android:paddingEnd">@dimen/padding_low</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/abc_text_size_medium_material</item>
+    </style>
+    <style name="largeTextView" parent="android:Widget.TextView">
+        <item name="android:paddingTop">@dimen/padding_low</item>
+        <item name="android:paddingLeft">@dimen/padding_high</item>
+        <item name="android:paddingRight">@dimen/padding_low</item>
+        <item name="android:paddingEnd">@dimen/padding_low</item>
+        <item name="android:textSize">@dimen/abc_text_size_large_material</item>
+    </style>
+
+    <style name="MovieTitle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieRating">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="MovieDate">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorLightGrey</item>
+    </style>
+
+    <style name="MovieItemLabel">
+        <item name="android:textColor">@color/colorDarkGrey</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieItemValue">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorLightGrey</item>
+    </style>
+</resources>

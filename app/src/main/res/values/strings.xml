@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="content_authority">com.example.vinhphuc.udacitypopularmovies</string>
+
+    <!-- Titles -->
+    <!-- Title naming the activity Movie Details -->
+    <string name="title_activity_movie_details">Movie Details</string>
+
+    <!-- UI text -->
+    <!--MainActivity texts-->
+    <string name="sort">Sort</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="favourite">Favourite</string>
+    <string name="movies">Movies</string>
+
+    <!-- Headline for release date -->
+    <string name="heading_release_date">Release Date</string>
+    <!-- Headline for user vote average -->
+    <string name="heading_vote_average">Vote Average</string>
+    <!-- Runtime text -->
+    <string name="no_release_date_found">No release date found</string>
+    <string name="no_summary_found">No summary was found</string>
+
+    <string name="movie_detail_error_message">Movie data is not available</string>
+    <string name="no_favourite_movies_message">You have no favorite movies</string>
+
+    <string name="description_movie_poster">Contains poster of movie</string>
+
+    <!--MovieDetailActivity texts-->
+    <string name="title_movie_detail">Movie Details</string>
+    <string name="summary">Summary</string>
+    <string name="reviews">Reviews</string>
+    <string name="share">Share</string>
+    <string name="share_trailer">Share trailer</string>
+    <string name="added_to_favourite">added to favourite movies</string>
+    <string name="removed_from_favourite">removed from favourite movies</string>
+    <string name="play">Play</string>
+    <string name="video">Video</string>
+    <string name="movie_backdrop_image">Movie Backdrop Image</string>
+
+    <!-- Some strings used for example layout during design -->
+    <string name="example_original_title">5 Centimeters Per Second</string>
+    <string name="example_release_date">03–03–2007</string>
+    <string name="example_vote_average">8.2/10</string>
+    <string name="example_duration_time">152 min</string>
+    <string name="example_summary">Takaki and Akari are two classmates in elementary school. During their time together they have become close friends. Their relationship is tested when Akari moves to another city because of her parents\' jobs. Both of them struggle to keep their friendship alive, as time and distance slowly pulls them apart.</string>
+
+    <!--Lifetime and bundle-->
+    <string name="parcel_movie">PARCEL_MOVIE</string>
+
+    <!--Preference items-->
+    <string name="pref_sort_vote_avg_desc_key">SORT_VOTE_AVERAGE_DESC</string>
+    <string name="pref_sort_pop_desc_key">SORT_POPULARITY_DESC</string>
+    <string name="pref_sort_fav_desc_key">SORT_FAVOURITE_DESC</string>
+
+    <!--Review list strings-->
+    <string name="author">Author</string>
+    <string name="review_label">Review</string>
+
+    <!--Error user information-->
+    <string name="error_need_internet">This application needs Internet connection to function.</string>
+</resources>
