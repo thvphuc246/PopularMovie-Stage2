@@ -37,7 +37,7 @@ import com.nex3z.flowlayout.FlowLayout;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
@@ -49,31 +49,31 @@ public class MovieDetailFragment extends Fragment {
 
     public static String EXTRA_MOVIE_KEY = "extra_movie";
 
-    @InjectView(R.id.svDetailsContainer)
+    @BindView(R.id.svDetailsContainer)
     NestedScrollView mSvDetailsContainer;
-    @InjectView(R.id.imageview_poster)
+    @BindView(R.id.imageview_poster)
     ImageView mIvMovie;
-    @InjectView(R.id.tvTitle)
+    @BindView(R.id.tvTitle)
     TextView mTvTitle;
-    @InjectView(R.id.tvReleaseDateValue)
+    @BindView(R.id.tvReleaseDateValue)
     TextView mTvReleaseDateValue;
-    @InjectView(R.id.tvDurationValue)
+    @BindView(R.id.tvDurationValue)
     TextView mTvDurationValue;
-    @InjectView(R.id.tvVoteValue)
+    @BindView(R.id.tvVoteValue)
     TextView mTvVoteAvgValue;
-    @InjectView(R.id.tvPlotValue)
+    @BindView(R.id.tvPlotValue)
     TextView mTvPlotValue;
-    @InjectView(R.id.ratingBar)
+    @BindView(R.id.ratingBar)
     MaterialRatingBar mRatingBar;
-    @InjectView(R.id.genresContainer)
+    @BindView(R.id.genresContainer)
     FlowLayout mGenresContainer;
-    @InjectView(R.id.rvVideos)
+    @BindView(R.id.rvVideos)
     RecyclerView mRvVideos;
-    @InjectView(R.id.tvReviewsTitle)
+    @BindView(R.id.tvReviewsTitle)
     TextView mTvReviewsTitle;
-    @InjectView(R.id.rvReviews)
+    @BindView(R.id.rvReviews)
     RecyclerView mRvReviews;
-    @InjectView(R.id.fbLike)
+    @BindView(R.id.fbLike)
     FloatingActionButton mFbLike;
 
     private Movie mMovie;
@@ -114,7 +114,7 @@ public class MovieDetailFragment extends Fragment {
                 .inflate(R.layout.activity_detail_fragment,
                         container,
                         false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
 
         mIsFavourite = isFavouriteMovie();
 
@@ -157,7 +157,7 @@ public class MovieDetailFragment extends Fragment {
     }
 
     private void initializeViews(View rootView) {
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
 
         mFbLike.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -36,7 +36,7 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -44,15 +44,15 @@ public class MainActivity extends AppCompatActivity
 
     private EndlessRecyclerViewScrollListener mScrollListener;
 
-    @InjectView(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout mSwipeRefreshLayout;
-    @InjectView(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.rvMovieList)
+    @BindView(R.id.rvMovieList)
     RecyclerView mRecyclerView;
-    @InjectView(R.id.noDataContainer)
+    @BindView(R.id.noDataContainer)
     View mNoDataContainer;
-    @InjectView(R.id.tvNoDataMsg)
+    @BindView(R.id.tvNoDataMsg)
     TextView mNoDataContainerMsg;
 
     private MovieApiManager.SortBy sortBy = MovieApiManager.SortBy.MostPopular;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         loadSortSelected();
 
@@ -349,10 +349,10 @@ public class MainActivity extends AppCompatActivity
             mMovies = new MovieList();
             // Reset recycler adapter
             setRecyclerViewAdapter(null);
-            getSupportLoaderManager().initLoader(
-                    FAVOURITES_MOVIE_LOADER_ID,
-                    null,
-                    this);
+            getSupportLoaderManager()
+                    .initLoader(FAVOURITES_MOVIE_LOADER_ID,
+                            null,
+                            this);
         }
 
     }
